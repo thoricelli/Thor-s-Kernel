@@ -40,16 +40,15 @@ enum MULTIBOOT_TAG
 class MultibootTwoInfo
 {
 private:
-    intptr_t tagLocations[LOAD_BASE_ADDR + 1] = {0};
+    inline static intptr_t tagLocations[LOAD_BASE_ADDR + 1] = {0};
 
 public:
-    MultibootTwoInfo(void *header);
+    static void Parse(void *bootInformation);
 
     /**
      * @return If the tag exists in the header.
      */
-    bool HasTag(MULTIBOOT_TAG tag);
+    static bool HasTag(MULTIBOOT_TAG tag);
 
-    template <typename T>
-    T *GetTag(MULTIBOOT_TAG tag);
+    static void *GetTag(MULTIBOOT_TAG tag);
 };

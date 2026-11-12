@@ -22,6 +22,18 @@ void vga_test()
 
 extern "C" void kernel_main(void *bootInformation)
 {
+    MultibootTwoInfo::Parse(bootInformation);
+
+    auto meminfo = static_cast<multiboot_tag_basic_meminfo *>(MultibootTwoInfo::GetTag(MULTIBOOT_TAG::BASIC_MEMINFO));
+
+    /**
+     * TODO: (In order of priority)
+     * 1. We have a frame buffer we can draw to. -> TODO: Glyph drawing, so we can display text.
+     * 2. We have the SMBIOS to access what hardware devices are present -> TODO: Implement keyboard input
+     * 3. We now know the physical memory boundaries -> TODO: a proper memory manager.
+     */
+
     vga_test();
+
     return;
 }

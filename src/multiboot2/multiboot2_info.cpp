@@ -1,7 +1,7 @@
 #include "multiboot2/multiboot2_header.hpp"
 #include "stddef.h"
 
-MultibootTwoInfo::MultibootTwoInfo(void *bootInformation)
+void MultibootTwoInfo::Parse(void *bootInformation)
 {
     auto bootptr = static_cast<uint8_t *>(bootInformation);
 
@@ -14,7 +14,10 @@ MultibootTwoInfo::MultibootTwoInfo(void *bootInformation)
 
     while (header->type != MULTIBOOT_TAG::END)
     {
-        this->tagLocations[header->type] = (intptr_t)header;
+        MultibootTwoInfo::tagLocations[header->type] = (intptr_t)header;
+
+        // Multiboot headers are 8-byte aligned.
+        bootptr = (uint8_t *)((uintptr_t)(bootptr + header->size + 7) & (~0x7));
 
         header = static_cast<multiboot_header_tag *>((void *)bootptr);
     }
@@ -22,11 +25,10 @@ MultibootTwoInfo::MultibootTwoInfo(void *bootInformation)
 
 bool MultibootTwoInfo::HasTag(MULTIBOOT_TAG tag)
 {
-    return this->tagLocations[tag] != (intptr_t)NULL;
+    return MultibootTwoInfo::tagLocations[tag] != (intptr_t)NULL;
 }
 
-template <typename T>
-T *MultibootTwoInfo::GetTag(MULTIBOOT_TAG tag)
+void *MultibootTwoInfo::GetTag(MULTIBOOT_TAG tag)
 {
-    return (T *)this->tagLocations[tag];
+    return (void *)MultibootTwoInfo::tagLocations[tag];
 }
