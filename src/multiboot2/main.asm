@@ -73,6 +73,12 @@ _start:
     call setup_page_tables
     call enable_paging
 
+    ; TODO: 64-bit support.
+    ; For now, the kernel is only supported for 32-bit systems,
+    ; and stays in protected mode for 64-bit systems.
+    jmp x32_bit_cpu
+    ; EXECUTION ENDS HERE
+
     call has_cpuid
     call has_long_mode
 
