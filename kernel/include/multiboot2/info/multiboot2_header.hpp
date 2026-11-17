@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "multiboot2/multiboot2.h"
+#include "multiboot2/info/multiboot2.h"
 #include <stdint.h>
 
 struct multiboot_start
@@ -43,7 +43,7 @@ private:
     inline static intptr_t tagLocations[LOAD_BASE_ADDR + 1] = {0};
 
 public:
-    static void Parse(void *bootInformation);
+    static void Parse(void *boot_information);
 
     /**
      * @return If the tag exists in the header.

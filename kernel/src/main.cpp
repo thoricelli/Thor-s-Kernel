@@ -1,5 +1,7 @@
 #include "drivers/vga/vga-text.hpp"
-#include "multiboot2/multiboot2_header.hpp"
+#include "multiboot2/info/multiboot2_header.hpp"
+
+#include <string.h>
 
 void vga_test()
 {
@@ -20,20 +22,17 @@ void vga_test()
     VGAText::SetBlink(false);
 }
 
-extern "C" void kernel_main(void *bootInformation)
+extern "C" void kernel_main(void *boot_information)
 {
-    MultibootTwoInfo::Parse(bootInformation);
+    MultibootTwoInfo::Parse(boot_information);
 
     auto meminfo = static_cast<multiboot_tag_basic_meminfo *>(MultibootTwoInfo::GetTag(MULTIBOOT_TAG::BASIC_MEMINFO));
 
-    /**
-     * TODO: (In order of priority)
-     * 1. We have a frame buffer we can draw to. -> TODO: Glyph drawing, so we can display text.
-     * 2. We have the SMBIOS to access what hardware devices are present -> TODO: Implement keyboard input
-     * 3. We now know the physical memory boundaries -> TODO: a proper memory manager.
-     */
-
     vga_test();
+
+    char buffer[33];
+
+    VGAText::WriteLine(itoa(912648875, buffer, 10));
 
     return;
 }

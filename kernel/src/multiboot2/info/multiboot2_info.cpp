@@ -1,4 +1,4 @@
-#include "multiboot2/multiboot2_header.hpp"
+#include "multiboot2/info/multiboot2_header.hpp"
 #include "stddef.h"
 
 void MultibootTwoInfo::Parse(void *bootInformation)

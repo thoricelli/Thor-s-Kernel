@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#include <runtime/string.h>
+#include <string.h>
 
 // 2 bytes: COLOR, TEXT
 #define VGA_TEXT_MEMORY_ADDRESS 0xB8000

@@ -1,8 +1,6 @@
 #pragma once
 
-#define HEAP_SIZE 16000
-
-char *heap[HEAP_SIZE];
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C"

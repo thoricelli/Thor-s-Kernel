@@ -29,5 +29,5 @@ I recommend: [QEMU](https://www.qemu.org/).
 
 Running
 ```shell
-qemu-system-i386 -cdrom ./build/hobby_os.iso
+qemu-system-i386 -cdrom ./build/os.iso
 ```
